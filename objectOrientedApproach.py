@@ -1,11 +1,8 @@
 # Object Oriented Approach
-# We must create seperate classes to create new user defined data structures 
-# which hold arbitrary information about our program
-# Our classes will be our 'Queue','toDoList', 'Event', and finally our 'Task'
 
+ 
+import sys
 
-# Create the Queue class first
-# 
 class Queue():
 	def __init__(self):
 		self.items = []
@@ -16,9 +13,6 @@ class Queue():
 	def enqueue(self,item): # adding something to our queue
 		return self.items.append(item)
 
-	# with our queue we work with a #fifo method so when we
-	# remove something from the queue it is the first item 
-	# that was added onto the queue that is taken off
 	def dequeue(self):
 		item = self.items
 		item.pop(0)
@@ -30,7 +24,7 @@ class Queue():
 # Our ToDoList class inherits our Queue class
 class ToDoList(Queue):
 	def __init__(self):
-		self.items = []
+		super().__init__()
 
 	def accept(self,item): # adding to the queue
 		self.enqueue(item)
@@ -40,43 +34,78 @@ class ToDoList(Queue):
 
 	def printToDoList(self):
 		for item in self.items:
-			print(item)
+			print(item.show())
 
 # Tasks have a date, a start time, a duration and a list of people assigned to the task
 class Task():
-	def __init__(self,date,startTime,duration,assignedPeople):
+	def __init__(self,date,start_time,duration,assigned_people):
 		self.date = date
-		self.startTime = startTime
+		self.start_time = start_time
 		self.duration = duration
-		self.assignedPeople = assignedPeople
+		self.assigned_people = assigned_people
 
-
-	def show_task(self):
-		return "Date of task: {}\nStart time of task: {}\nDuration of task: {}\nPeople assigned to task: {}\n".format(self.date,self.startTime,self.duration,self.assignedPeople)
+	def show(self):
+		return "Date of task: {}\nStart time of task: {}\nDuration of task: {}\nPeople assigned to task: {}\n".format(self.date,self.start_time,self.duration,self.assigned_people)
 # Events have a date, start time and a location
 class Event():
-	def __init__(self,date,startTime,location):
+	def __init__(self,date,start_time,location):
 		self.date = date
-		self.startTime = startTime
+		self.start_time = start_time
 		self.location = location
 
-	def show_event(self):
-		return "Date of event: {}\nStart time of task: {}\nLocation of the event: {}\n".format(self.date,self.startTime,self.location)
+	def show(self):
+		return "Date of event: {}\nStart time of task: {}\nLocation of the event: {}\n".format(self.date,self.start_time,self.location)
 
 def main():
-	l = ToDoList()
-	task = Task("15/11/1997","2:00pm","2hrs", ["conor","ben"])
-	task2 = Task("21/7/2019", "4pm", "5hrs", ["conor","james","ben"])
-	event = Event("29/2/2120","4pm","l135")
-	event2 = Event("30/2/2010","4pm","xg19")
+	tdl = ToDoList()
+	#tdl = Queue()
+	print("\nPlease enter your action:\n'task'\n'event'\n'remove'\n")
 
-	l.accept(task.show_task())
-	l.accept(event.show_event())
-	l.accept(task2.show_task())
-	l.discard()
-	l.accept(event2.show_event())
-	l.discard()
-	l.printToDoList()
+	for action in sys.stdin:
+		action = action.strip()
+		print("Action = {}\n".format(action))
+
+		if action == "task":
+			date = input("Date of task: ")
+			start_time = input("Task start time: ")
+			duration = input("Duration of task: ")
+			assigned_people = (input("First name of people assigned to task seperated by a comma ',': ")).split(",")
+			
+			print("\n")
+			print('-'*5 + 'Start of queue'+ '-'*5 )
+			task = Task(date,start_time,duration,assigned_people)
+			tdl.accept(task)
+			tdl.printToDoList()
+			print('-'*5 + 'End of queue'+ '-'*5)
+			print("Task added to queue\n")
+			print("Choose another action:\n'task'\n'event'\n'remove'\n")
+
+		elif action == "event":
+			date = input("Date of task: ")
+			start_time = input("Event start time: ")
+			location = input("Location of event: ")
+			
+			print("\n")
+			print('-'*5 + 'Start of queue'+ '-'*5)
+			event = Event(date,start_time,location)
+			tdl.accept(event)
+			tdl.printToDoList()
+			print('-'*5 + 'End of queue'+ '-'*5)
+			print("Item removed from queue\n")
+			print("Choose another action:\n'task'\n'event'\n'remove'\n")
+
+		elif action == "remove":
+			try:
+				print("\n")
+				print('-'*5 + 'Start of queue'+ '-'*5)
+				tdl.discard()
+				tdl.printToDoList()
+				print('-'*5 + 'End of queue'+ '-'*5)
+				print("Event added to queue\n")
+				print("Choose another action:\n'task'\n'event'\n'remove'\n")
+			except:
+				print("ToDo List is empty! \n")
+				print("Choose another action:\n'task'\n'event'\n'remove'\n")
 
 if __name__ == '__main__':
 	main()
