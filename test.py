@@ -1,43 +1,34 @@
-to_do = ''
+todo_list = ""
+inp = input("Welcome to the To Do List! Please enter your name:  ")
 
-def add_task(date, start_time, duration, attendees, curr_list):
-    global to_do
-    curr_list = date + '\n' + start_time + '\n' + duration + '\n' + attendees + '\n' + "NEW:" + '\n'
-    to_do += curr_list
+while True:
+    inp = input("What would you like to; addEvent addTask printList completeNextItem quit \n")
 
-def add_event(date, time, location, curr_list):
-    global to_do
-    curr_list = '\n'  + date + '\n' + time + '\n' + location + '\n' + "NEW:"
-    to_do += curr_list
+    if inp == 'addEvent':
+        date = input("Date: ")
+        time = input("Time: ")
+        location = input("Location: ")
+        todo_list += '\n' + 'EVENT/TASK' + '\n' + date + '\n' + time + '\n' + location
 
-def remove_item(to_do_list):
-    global to_do
-    if to_do.count('\n') > 5:
-        to_do = to_do[to_do.index("NEW:"):]
+    elif inp == 'addTask':
+        date = input("Date: ")
+        time = input("Time: ")
+        duration = input("Duration: ")
+        people = input("People: ")
+        todo_list += '\n' + 'EVENT/TASK' + '\n' + date + '\n' + time + '\n' + duration + '\n' + people
 
-    elif to_do.count('\n') == 4 or to_do.count('\n') == 5 or to_do.count('\n') == 6:
-        to_do = ''
+    elif inp == 'printList':
+        print(todo_list)
+
+    elif inp == 'completeNextItem':
+        i = todo_list.find('EVENT/TASK')
+        todo_list = todo_list[i+10:]
+        i = todo_list.find('EVENT/TASK')
+        todo_list = todo_list[i:]
+
+    elif inp == 'quit':
+        break
 
     else:
-        to_do = ''
-        print('Everything has been done! Nothing to remove.')
-
-
-item = input('If you would like to add a task or event, please type task or event. If you want to remove, type rm:{}'.format('\n'))
-
-
-while item != 'Exit':
-
-    if item == 'task':
-        add_task(input('Date: '), input('Start Time: '), input('Duration: '), input('Attendees: '), to_do)
-        print(to_do)
-
-    elif item == 'event':
-        add_event(input('Date: '), input('Time: '), input('Location: '), to_do)
-        print(to_do)
-    
-    elif item == 'rm':
-        remove_item(to_do)
-        print(to_do)
-        
-    item = input('What else would you like to add or remove?')
+        print("Please enter a valid input!")
+print("Goodbye!")

@@ -59,7 +59,7 @@ class Event():
 def main():
 	tdl = ToDoList()
 	#tdl = Queue()
-	print("\nPlease enter your action:\n'task'\n'event'\n'remove'\n")
+	print("\nPlease enter your action:\n'task'\n'event'\n'remove'\n'print'\n'end'")
 
 	for action in sys.stdin:
 		action = action.strip()
@@ -69,7 +69,7 @@ def main():
 			date = input("Date of task: ")
 			start_time = input("Task start time: ")
 			duration = input("Duration of task: ")
-			assigned_people = (input("First name of people assigned to task seperated by a comma ',': ")).split(",")
+			assigned_people = (input("First name of people seperated by a space: ")).split(" ")
 			
 			print("\n")
 			print('-'*5 + 'Start of queue'+ '-'*5 )
@@ -78,10 +78,10 @@ def main():
 			tdl.printToDoList()
 			print('-'*5 + 'End of queue'+ '-'*5)
 			print("Task added to queue\n")
-			print("Choose another action:\n'task'\n'event'\n'remove'\n")
+			print("Choose another action:\n'task'\n'event'\n'remove'\n'print'\n'end'\n")
 
 		elif action == "event":
-			date = input("Date of task: ")
+			date = input("Date of event: ")
 			start_time = input("Event start time: ")
 			location = input("Location of event: ")
 			
@@ -92,7 +92,7 @@ def main():
 			tdl.printToDoList()
 			print('-'*5 + 'End of queue'+ '-'*5)
 			print("Item removed from queue\n")
-			print("Choose another action:\n'task'\n'event'\n'remove'\n")
+			print("Choose another action:\n'task'\n'event'\n'remove'\n'print'\n'end'\n")
 
 		elif action == "remove":
 			try:
@@ -102,10 +102,20 @@ def main():
 				tdl.printToDoList()
 				print('-'*5 + 'End of queue'+ '-'*5)
 				print("Event added to queue\n")
-				print("Choose another action:\n'task'\n'event'\n'remove'\n")
+				print("Choose another action:\n'task'\n'event'\n'remove'\n,'print'\n'end'\n")
 			except:
 				print("ToDo List is empty! \n")
-				print("Choose another action:\n'task'\n'event'\n'remove'\n")
+				print("Choose another action:\n'task'\n'event'\n'remove'\n'print'\n'end'\n")
+
+		elif action == "print":
+			print('-'*5 + 'Start of queue'+ '-'*5)
+			tdl.printToDoList()
+			print('-'*5 + 'End of queue'+ '-'*5)
+			print("Choose another action:\n'task'\n'event'\n'remove'\n'print'\n'end'\n")
+
+		elif action == "end":
+			print("Thank you for using the ToDo List, goodbye!\n")
+			sys.exit()
 
 if __name__ == '__main__':
 	main()
