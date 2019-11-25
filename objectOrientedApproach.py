@@ -71,6 +71,7 @@ def main():
 			duration = input("Duration of task: ")
 			assigned_people = (input("First name of people seperated by a space: ")).split(" ")
 			
+			# Print statements are an extra that I decided to use to allow for visual formatting in our konsole
 			print("\n")
 			print('-'*5 + 'Start of queue'+ '-'*5 )
 			task = Task(date,start_time,duration,assigned_people)
@@ -85,6 +86,7 @@ def main():
 			start_time = input("Event start time: ")
 			location = input("Location of event: ")
 			
+			# Print statements are an extra that I decided to use to allow for visual formatting in our konsole
 			print("\n")
 			print('-'*5 + 'Start of queue'+ '-'*5)
 			event = Event(date,start_time,location)
@@ -96,6 +98,7 @@ def main():
 
 		elif action == "remove":
 			try:
+				# Print statements are an extra that I decided to use to allow for visual formatting in our konsole
 				print("\n")
 				print('-'*5 + 'Start of queue'+ '-'*5)
 				tdl.discard()
